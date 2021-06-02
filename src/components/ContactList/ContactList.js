@@ -4,7 +4,7 @@ import ContactsListItem from "../ContactsListItem";
 const ContactList = ({ contacts, onDeleteContact }) => {
   return (
     <div>
-      <ul>
+      <ul style={{ padding: "0px" }}>
         <ContactsListItem items={contacts} onDeleteContact={onDeleteContact} />
       </ul>
     </div>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { v4 as uuidv4 } from "uuid";
-import "./App.css";
+import styles from "./App.module.css";
 import ContactForm from "../ContactForm";
 import Filter from "../Filter";
 import ContactList from "../ContactList";
@@ -54,9 +54,23 @@ class App extends Component {
     }));
   };
 
+  componentDidMount() {
+    const contacts = localStorage.getItem("contacts");
+    const parsedContacts = JSON.parse(contacts);
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
+    }
+  }
+
   render() {
     return (
-      <div className="App">
+      <div className={styles.app}>
         <h1 className="title">Phonebook</h1>
         <ContactForm onSubmit={this.addContact} />
         <h2 className="title">Contacts</h2>
